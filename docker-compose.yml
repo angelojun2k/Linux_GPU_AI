@@ -1,0 +1,14 @@
+services:
+  ollama-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ollama-gpu
+    runtime: nvidia  # Habilitar suporte a GPU da Nvidia
+    network_mode: host  # Usar a rede do host diretamente
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # Tornar todas as GPUs visíveis
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility  # Habilitar capacidades da GPU
+    volumes:
+      - ./workspace:/home/jun/workspace  # Mapear um volume para o workspace do usuário
+    restart: unless-stopped
